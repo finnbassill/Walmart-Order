@@ -12,18 +12,18 @@ import random
 def walmartOrderTracker(rows): 
 
     #Optional Proxy 
-    #options = {
-    #'proxy': {
-    #    'http': 'http://GPRT413625:AJLOQTV7@216.173.99.17:19270',
-    #    'https': 'http://GPRT413625:AJLOQTV7@216.173.99.17:19270',
-    #    'no_proxy': 'localhost,127.0.0.1'
-    #}}
-    #driver = webdriver.Chrome(r'/Users/finnbassill/Projects/Walmart-Order/mac/chromedriver', seleniumwire_options=options)
+    options = {
+    'proxy': {
+        'http': 'http://GPRT413625:AJLOQTV7@216.173.99.17:19270',
+        'https': 'http://GPRT413625:AJLOQTV7@216.173.99.17:19270',
+        'no_proxy': 'localhost,127.0.0.1'
+    }}
+    driver = webdriver.Chrome(r'/Users/finnbassill/Projects/Walmart-Order/mac/chromedriver', seleniumwire_options=options)
 
     #Webdriver path
-    options = Options()
+    #options = Options()
     #options.add_argument("--headless")
-    driver = webdriver.Chrome(r'/Users/finnbassill/Projects/Walmart-Order/mac/chromedriver', options=options)
+    #driver = webdriver.Chrome(r'/Users/finnbassill/Projects/Walmart-Order/mac/chromedriver', options=options)
 
     fields = []
     updatedRows = []

@@ -1,21 +1,30 @@
+import os
+import sys
 
 def proxyHandling():
-    ip = []
-    port = []
-    username = []
-    password = []
+    userInput = input('\n\nIf your would like to rotate proxies on px,\nOr run the program on a singular proxy,\nPlease enter the proxy/list in proxies.txt and restart.\nOtherwise, hit ENTER.')
+    if userInput == '':
 
-    with open('proxies.txt') as line:
-        proxy = line.readlines()
-        ip.append(proxy.split(':')[0])
-        port.append(proxy.split(':')[1])
-        username.append(proxy.split(':')[2])
-        password.append(proxy.split(':')[3])
+        ip = []
+        port = []
+        username = []
+        password = []
 
-        print(ip)
-        print(port)
-        print(username)
-        print(password)
+        http = []
+        https = []
 
+        with open(os.path.join(sys.path[0],'proxies.txt'), 'r') as proxies:
+            for line in proxies:
+                ip.append(line.split(':')[0])
+                port.append(line.split(':')[1])
+                username.append(line.split(':')[2])
+                if '\n' in line.split(':')[3]:
+                    password.append(line.split(':')[3].replace('\n', ''))
+                else:
+                    password.append(line.split(':')[3])
+
+        for i in range(len(ip)):
+            http.append(f"'http://{username[i]}:{password[i]}@{ip[i]}:{port[i]}'")
+            https.append(f"'http://{username[i]}:{password[i]}@{ip[i]}:{port[i]}'")
 
 proxyHandling()
