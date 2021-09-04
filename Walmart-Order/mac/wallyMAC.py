@@ -6,24 +6,32 @@ from selenium.webdriver.common.keys import Keys
 import time
 from operator import itemgetter
 import random
+from proxyHandling import *
 
     
 #Function that scrapes walmart page to see if product is cancelled or not
 def walmartOrderTracker(rows): 
 
+    #Calling proxy handling function
+    #ph = proxyHandling()
     #Optional Proxy 
-    options = {
-    'proxy': {
-        'http': 'http://GPRT413625:AJLOQTV7@216.173.99.17:19270',
-        'https': 'http://GPRT413625:AJLOQTV7@216.173.99.17:19270',
-        'no_proxy': 'localhost,127.0.0.1'
-    }}
-    driver = webdriver.Chrome(r'/Users/finnbassill/Projects/Walmart-Order/mac/chromedriver', seleniumwire_options=options)
+    #options = {
+    #'proxy': {
+    #    'http': f'{ph[0][0]}',
+    #    'https': f'{ph[1][0]}',
+    #    'no_proxy': 'localhost,127.0.0.1'
+    #}}
+    #options.add_argument("start-maximized")
+    #options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    #options.add_experimental_option('useAutomationExtension', False)
+    #driver = webdriver.Chrome(r'/Applications/chromedriver', seleniumwire_options=options)
 
-    #Webdriver path
-    #options = Options()
+    options = Options()
     #options.add_argument("--headless")
-    #driver = webdriver.Chrome(r'/Users/finnbassill/Projects/Walmart-Order/mac/chromedriver', options=options)
+    options.add_argument("start-maximized")
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    options.add_experimental_option('useAutomationExtension', False)
+    driver = webdriver.Chrome(r'/Applications/chromedriver', options=options)
 
     fields = []
     updatedRows = []
@@ -40,18 +48,18 @@ def walmartOrderTracker(rows):
         email = orders[1]
         for x in range(len(orders[1])):
             emailBox.send_keys(email[x])
-            time.sleep(random.uniform(0.04, 0.08))
+            time.sleep(random.uniform(0.04, 0.12))
         
         #Sending keys with delay order num
         num = orders[3]
         for x in range(0,13):
             numBox.send_keys(num[x])
-            time.sleep(random.uniform(0.04, 0.08))
+            time.sleep(random.uniform(0.04, 0.12))
 
         #Send keys to click enter
         time.sleep(.1)
         numBox.send_keys(Keys.TAB)
-        time.sleep(0.13)
+        time.sleep(0.5)
         numBox.send_keys(Keys.ENTER)
         time.sleep(.7)
 
@@ -66,7 +74,7 @@ def walmartOrderTracker(rows):
                 time.sleep(2)
             else:
                 print('Caught captcha, waiting to solve...')
-                time.sleep(4)
+                time.sleep(6)
 
         #Checking to see if item is cancelled
         cancelStatus = driver.find_element_by_xpath('//span[@class="shipping-status-text"]').text
