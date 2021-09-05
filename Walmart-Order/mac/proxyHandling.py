@@ -31,6 +31,7 @@ def proxyHandling():
 
     return http, https, ip, port, username, password
 
+#Proxy Auth, refrence: https://botproxy.net/docs/how-to/setting-chromedriver-proxy-auth-with-selenium-using-python/
 def proxyAuth(host, port, user, pw):
     PROXY_HOST = host
     PROXY_PORT = port
@@ -89,9 +90,13 @@ def proxyAuth(host, port, user, pw):
     );
     """ % (PROXY_HOST, PROXY_PORT, PROXY_USER, PROXY_PASS)
 
+    pluginfile = 'proxy_auth_plugin.zip'
 
+    with zipfile.ZipFile(pluginfile, 'w') as zp:
+        zp.writestr("manifest.json", manifest_json)
+        zp.writestr("background.js", background_js)
 
-
+    return pluginfile
 
 def rotateProxy(num):
     pass

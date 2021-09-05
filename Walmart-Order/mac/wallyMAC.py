@@ -1,4 +1,3 @@
-from selenium.webdriver.chrome import options
 from seleniumwire import webdriver
 import csv
 from selenium.webdriver.chrome.options import Options
@@ -7,31 +6,26 @@ import time
 from operator import itemgetter
 import random
 from proxyHandling import *
+from driver import *
 
     
 #Function that scrapes walmart page to see if product is cancelled or not
 def walmartOrderTracker(rows): 
 
-    #Calling proxy handling function
-    #ph = proxyHandling()
-    #Optional Proxy 
-    #options = {
-    #'proxy': {
-    #    'http': f'{ph[0][0]}',
-    #    'https': f'{ph[1][0]}',
-    #    'no_proxy': 'localhost,127.0.0.1'
-    #}}
+    #PROCESS OF ADDING ROTATE PROXY AND USER AGENT
+    ph = proxyHandling()
+    pluginfile = proxyAuth(ph[2][0],ph[3][0],ph[4][0],ph[5][0])
+    driver = get_driver(pluginfile)
+    
+
+    #RUNNING PROGRAM ON NORMAL IP
+
+    #options = Options()
+    #options.add_argument("--headless")
     #options.add_argument("start-maximized")
     #options.add_experimental_option("excludeSwitches", ["enable-automation"])
     #options.add_experimental_option('useAutomationExtension', False)
-    #driver = webdriver.Chrome(r'/Applications/chromedriver', seleniumwire_options=options)
-
-    options = Options()
-    #options.add_argument("--headless")
-    options.add_argument("start-maximized")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_experimental_option('useAutomationExtension', False)
-    driver = webdriver.Chrome(r'/Applications/chromedriver', options=options)
+    #driver = webdriver.Chrome(r'/Applications/chromedriver', options=options)
 
     fields = []
     updatedRows = []
